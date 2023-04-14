@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptador</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <figure class="logo">
+        <img class="alura_logo" src="images/Vector.png" alt="alura Logo">
+        <span>Alura Encriptador</span>
+    </figure>
+
+    <div class="container">
+
+        <div class="container_user-input">
+            <form class="container_form" id="form">
+                <textarea cols="30" rows="10" placeholder="Ingrese el texto aquí" maxlength="150" autofocus id="userInput"></textarea>
+                <div class="form_inputs">
+                    <figure>
+                        <img id="info-icon" src="images/info.svg">
+                        <span id="info-text">Solo letras minúsculas y sin acentos</span>
+                    </figure>
+                    <div class="form_inputs-input">
+                        <input type="submit" id="encriptador" value="encriptar">
+                        <input type="submit" id="desencriptador" value="desencriptar">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="container_code-output">
+            <div class="card" id="output">
+                <div class="card-img"></div>
+                <span><b>Ningún mensaje fue encontrado</b><br><br>
+                    Ingresa el texto que desees encriptar o desencriptar.
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+            <a href="https://github.com/FerProx90" class="footer_cta" target="_blank">
+                <div class="cta_logo-github"></div>
+                <span class="cta_info">Contact Github</span>
+            </a>
+            <a href="https://www.linkedin.com/in/fernando-hernandez-a5b7b4251/" class="footer_cta" target="_blank">
+                <div class="cta_logo-linkedIn"></div>
+                <span class="cta_info">Contact LinkedIn</span>
+            </a>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
