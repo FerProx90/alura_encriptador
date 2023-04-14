@@ -88,7 +88,5 @@ function copyOutput(){
         setTimeout(()=>{
             output.innerHTML = defaultCardOutput
         }, 2000)
-
-        userInput.focus();
 }
 
