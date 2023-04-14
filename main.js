@@ -78,15 +78,19 @@ function desencriptar() {
 }
 
 function copyOutput(){
-        navigator.clipboard.writeText(copyString);
+        navigator.clipboard.writeText(copyString)
+            .then(() => {
+                output.innerHTML =
+                `<img src="images/check.svg">
+                <span class="success">Texto copiado satisfactoriamente
+                </span>`
 
-        output.innerHTML =
-        `<img src="images/check.svg">
-        <span class="success">Texto copiado satisfactoriamente
-        </span>`
+                setTimeout(()=>{
+                    output.innerHTML = defaultCardOutput
+                }, 2000)
+            })
+            .catch(()=> alert("Something went wrong"));
 
-        setTimeout(()=>{
-            output.innerHTML = defaultCardOutput
-        }, 2000)
+        
 }
 
