@@ -26,8 +26,13 @@ Users should be able to:
 - Copy the user input on clipboard.
 
 ### Screenshot
+#### Desktop 
 ![Destop](./screenshots/desktop-device.png)
+
+#### Tablet
 ![Tablet](./screenshots/tablet-device.png)
+
+#### Mobile
 ![Mobile](./screenshots/mobile-device.png)
 
 ### Link
