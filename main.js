@@ -1,12 +1,15 @@
 const form = document.getElementById('form');
 const userInput = document.getElementById('userInput');
 const output = document.getElementById('output');
-let copyString = ''
+let copyString = '';
+
 const defaultCardOutput = 
 `<div class="card-img"></div>
 <span><b>Ningún mensaje fue encontrado</b><br><br>
     Ingresa el texto que desees encriptar o desencriptar.
 </span>`;
+
+const encryptedHistory = [];
 
 form.addEventListener('submit', (event)=>{
     event.preventDefault();
@@ -41,36 +44,51 @@ userInput.addEventListener('keypress', ()=>{
 
 
 function encriptar() {
-    const dataEcrypted = userInput.value
-            .replace(/e/g, "enter")
-            .replace(/i/g, "imes")
-            .replace(/a/g, "ai")
-            .replace(/o/g, "ober")
-            .replace(/u/g, "ufat");
-       
-        copyString = dataEcrypted;
+    const vowelMap = {
+        a: "ai",
+        e: "enter",
+        i: "imes",
+        o: "ober",
+        u: "ufat"
+    };
 
-        output.innerHTML = 
-        `<span class="textoCodificado-js">${dataEcrypted}</span>
+    encryptedHistory.push(userInput.value);
+
+    const dataEncrypted = userInput.value.replace(/[aeiou]/g, (vowel) => vowelMap[vowel])
+
+       
+    copyString = dataEncrypted;
+
+    output.innerHTML = 
+        `<span class="textoCodificado-js">${dataEncrypted}</span>
         <button class="copyButton-js" onClick=copyOutput()>Copiar</button>`;
 
-        userInput.value = '';
+    userInput.value = '';
         
-        userInput.setAttribute('placeholder', "Ingrese el texto aquí");
+    userInput.setAttribute('placeholder', "Ingrese el texto aquí");
 }
 
 function desencriptar() {
-    const dataEcrypted = userInput.value
-            .replace(/enter/g, "e")
-            .replace(/imes/g, "i")
-            .replace(/ai/g, "a")
-            .replace(/ober/g, "o")
-            .replace(/ufat/g, "u");
+    const vowelMap = {
+        a: "ai",
+        e: "enter",
+        i: "imes",
+        o: "ober",
+        u: "ufat"
+    };
 
-        copyString = dataEcrypted;
+    let dataEncrypted = userInput.value;
+
+    for (key in vowelMap){
+        const regEx = new RegExp(vowelMap[key], 'g');
+        dataEncrypted = dataEncrypted.replace(regEx, key);
+        console.log(dataEncrypted)
+    }
+
+        copyString = dataEncrypted;
 
         output.innerHTML = 
-        `<span class="textoCodificado-js">${dataEcrypted}</span>
+        `<span class="textoCodificado-js">${dataEncrypted}</span>
         <button class="copyButton-js" onClick=copyOutput()>Copiar</button>`;
 
         userInput.value = '';
@@ -93,4 +111,3 @@ function copyOutput(){
 
         
 }
-
