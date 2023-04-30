@@ -38,11 +38,11 @@ form.addEventListener('submit', (event)=>{
         historyAdd(userInput.value, buttonClicked.value);
 
         if (buttonClicked.value == "encriptar"){
-            encriptar();
+            encrypt();
         }
 
         else if (buttonClicked.value == "desencriptar"){
-        desencriptar();
+        decrypt();
         }
     }
     else{
@@ -71,16 +71,15 @@ closeButton.addEventListener('click', ()=>{
 
 
 
-function encriptar() {
-    const dataEncrypted = userInput.value.replace(/[aeiou]/g, (vowel) => vowelMap[vowel])
+function encrypt() {
+    const dataEncrypted = userInput.value.replace(/[aeiou]/g, (vowel) => vowelMap[vowel]);
        
     outputContent(dataEncrypted);
-
     copyString = dataEncrypted;
 }
 
 
-function desencriptar() {
+function decrypt() {
     let dataEncrypted = userInput.value;
 
     for (key in vowelMap){
@@ -90,8 +89,6 @@ function desencriptar() {
 
         outputContent(dataEncrypted);
         copyString = dataEncrypted;
-        
-       
 }
 
 
@@ -100,8 +97,7 @@ function outputContent(dataEncrypted) {
         `<span class="textoCodificado-js">${dataEncrypted}</span>
         <button class="copyButton-js" onClick=copyOutput()>Copiar</button>`;
 
-    userInput.value = '';
-        
+    userInput.value = '';        
     userInput.setAttribute('placeholder', "Ingrese el texto aquí");
 }
 
