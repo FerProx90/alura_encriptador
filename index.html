@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encriptador</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="images/Vector.png" >
+    <link rel="shortcut icon" href="images/Vector.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.11.0/lottie.min.js"></script>
 </head>
+
 <body>
-    
+
     <figure class="logo">
         <img class="alura_logo" src="images/Vector.png" alt="alura Logo">
         <span>Alura Encriptador</span>
@@ -66,6 +68,11 @@
         <figure class="history-card_figure" id="closeButton">
             <img src="images/close-icon.svg" alt="close-icon">
         </figure>
+        <h2 class="history-card_title">Historial de encriptado/desencriptado</h2>
+        <div class="history-card-data" id="historyParagraph">
+            <p>Aquí se mostrará tu historial de encriptaciones.</p>
+            <div class="history-card-animation" id="typingAnimation"></div>
+        </div>
     </div>
 
     <script src="main.js"></script>

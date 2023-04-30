@@ -29,7 +29,7 @@ form.addEventListener('submit', (event)=>{
     event.preventDefault();
     const buttonClicked = event.submitter;
 
-    //Validación con expresión regular el input del usuario
+    //Validación con expresión regular del input del usuario
     const regex = /^[a-z0-9!¡ .¿?,]*$/g;
     const string = new String(userInput.value)
     const val = string.match(regex) ?? false;
@@ -119,8 +119,23 @@ function copyOutput(){
 
 
 function historyAdd(input, submitter) {
+    const defaultParagraph = document.getElementById('historyParagraph') ?? false
+    if (defaultParagraph){
+        defaultParagraph.remove();
+    }
+
     const paragraph = document.createElement('p');
     paragraph.classList.add('history-card-data');
     paragraph.innerHTML = `<b>${submitter}:</b> ${input}`;
     historyCard.appendChild(paragraph);
 }
+
+
+//animation code
+const animtation = bodymovin.loadAnimation({
+    container: document.getElementById('typingAnimation'),
+    path: 'animations/93884-typing.json',
+    render: 'svg',
+    loop: true,
+    autoplay: true
+})
