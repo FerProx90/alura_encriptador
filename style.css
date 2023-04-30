@@ -265,11 +265,7 @@ body{
 
 .history-card_figure{
     cursor: pointer;
-    width: 45px;
-    height: 45px;
-    border: 3px solid var(--alice-blue);
     border-radius: 50%;
-
     object-fit: cover;
 }
 

@@ -119,11 +119,6 @@ function copyOutput(){
 
 
 function historyAdd(input, submitter) {
-    // const historyDefault = document.getElementById('historyDefault') ?? false
-    // if (historyDefault){
-    //     historyDefault.remove();
-    // }
-
     const paragraph = document.createElement('p');
     paragraph.classList.add('history-card-data');
     paragraph.innerHTML = `<b>${submitter}:</b> ${input}`;
