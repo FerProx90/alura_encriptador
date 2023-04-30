@@ -30,7 +30,7 @@ form.addEventListener('submit', (event)=>{
     const buttonClicked = event.submitter;
 
     //Validación con expresión regular del input del usuario
-    const regex = /^[a-z0-9!¡ .¿?,]*$/g;
+    const regex = /^[a-z0-9!¡ .¿?,\s]*$/g;
     const string = new String(userInput.value)
     const val = string.match(regex) ?? false;
 
@@ -119,9 +119,9 @@ function copyOutput(){
 
 
 function historyAdd(input, submitter) {
-    const defaultParagraph = document.getElementById('historyParagraph') ?? false
-    if (defaultParagraph){
-        defaultParagraph.remove();
+    const historyDefault = document.getElementById('historyDefault') ?? false
+    if (historyDefault){
+        historyDefault.remove();
     }
 
     const paragraph = document.createElement('p');
