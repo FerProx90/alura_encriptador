@@ -179,6 +179,7 @@ body{
     border-radius: 1rem;
     box-shadow: 0px 24px 32px rgba(0,0,0,0.08);
 
+    overflow: auto;
 
     background-color: white;
 
@@ -201,6 +202,68 @@ body{
     font-family: var(--font-poppins);
 }
 
+.history_button-button{
+    width: 100px;
+    height: 30px;
+
+    border: none;
+    border-radius: 15px 15px 0px 0px;
+
+    background-color: var(--blue);
+    color: var(--alice-blue);
+
+    font: 0.9rem var(--font-poppins);
+    letter-spacing: 0.1rem;
+
+    cursor: pointer;
+
+    transform-origin: top right;
+    transform: rotate(-90deg)  translateY(-100%);
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+
+.history-card{
+    width: 100%;
+    height: 100vh;
+    padding: 10%;
+
+    background-color: var(--blue);
+    color: var(--alice-blue);
+
+    font-size: 1rem;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    transition: all 0.8s ease;
+    transform: translateX(100%);
+
+    overflow: auto;
+}
+
+.history-card_figure{
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+
+    float: right;
+}
+
+.history-card-data{
+    padding: 20px 0px;
+    border-bottom: 1px solid var(--alice-blue);
+
+    clear: right;
+}
+
+.show_historyCard-js{
+    transform: translateX(0%);
+}
+
 .textoCodificado-js{
     max-width: 260px;
     text-align: start;
@@ -210,6 +273,7 @@ body{
 .copyButton-js{
     width: 280px;
     height: 2.5rem;
+    min-height: 2.5rem;
     border: none;
     border-radius: 25px;
 
@@ -323,5 +387,20 @@ body{
 
     .copyButton-js{
         width: 90%;
+    }
+
+    .history_button-button{
+        width: 150px;
+        height: 40px;
+
+        font-size: 1.2rem;
+        letter-spacing: 0.2rem;
+    }
+
+    .history-card{
+        width: 35%;
+        padding: 40px;
+
+        font-size: 1.2rem;
     }
 }

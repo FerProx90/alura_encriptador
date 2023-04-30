@@ -1,6 +1,12 @@
+// ---------- All elements from DOM ----------
 const form = document.getElementById('form');
 const userInput = document.getElementById('userInput');
 const output = document.getElementById('output');
+const historyButton = document.getElementById('historyButton');
+const closeButton = document.getElementById('closeButton');
+const historyCard = document.querySelector('.history-card');
+
+// ---- variable for clipBoard ----
 let copyString = '';
 
 const defaultCardOutput = 
@@ -9,7 +15,15 @@ const defaultCardOutput =
     Ingresa el texto que desees encriptar o desencriptar.
 </span>`;
 
-const encryptedHistory = [];
+
+// --- Object for encrypt functions ---
+const vowelMap = {
+    a: "ai",
+    e: "enter",
+    i: "imes",
+    o: "ober",
+    u: "ufat"
+};
 
 form.addEventListener('submit', (event)=>{
     event.preventDefault();
@@ -21,6 +35,8 @@ form.addEventListener('submit', (event)=>{
     const val = string.match(regex) ?? false;
 
     if (val && userInput.value.trim() != ''){
+        historyAdd(userInput.value, buttonClicked.value);
+
         if (buttonClicked.value == "encriptar"){
             encriptar();
         }
@@ -35,30 +51,51 @@ form.addEventListener('submit', (event)=>{
         const infoText = document.getElementById('info-text').classList.add('warning-js');
         userInput.focus();
     }
-})
+});
+
 
 userInput.addEventListener('keypress', ()=>{
     const infoIcon = document.getElementById('info-icon').src = "images/info.svg";
     const infoText = document.getElementById('info-text').classList.remove('warning-js');
-})
+});
+
+historyButton.addEventListener('click', ()=>{
+    historyButton.style.visibility = 'hidden';
+    historyCard.classList.add('show_historyCard-js');
+});
+
+closeButton.addEventListener('click', ()=>{
+    historyButton.style.visibility = 'visible';
+    historyCard.classList.remove('show_historyCard-js');
+});
+
 
 
 function encriptar() {
-    const vowelMap = {
-        a: "ai",
-        e: "enter",
-        i: "imes",
-        o: "ober",
-        u: "ufat"
-    };
-
-    encryptedHistory.push(userInput.value);
-
     const dataEncrypted = userInput.value.replace(/[aeiou]/g, (vowel) => vowelMap[vowel])
-
        
-    copyString = dataEncrypted;
+    outputContent(dataEncrypted);
 
+    copyString = dataEncrypted;
+}
+
+
+function desencriptar() {
+    let dataEncrypted = userInput.value;
+
+    for (key in vowelMap){
+        const regEx = new RegExp(vowelMap[key], 'g');
+        dataEncrypted = dataEncrypted.replace(regEx, key);
+    }
+
+        outputContent(dataEncrypted);
+        copyString = dataEncrypted;
+        
+       
+}
+
+
+function outputContent(dataEncrypted) {
     output.innerHTML = 
         `<span class="textoCodificado-js">${dataEncrypted}</span>
         <button class="copyButton-js" onClick=copyOutput()>Copiar</button>`;
@@ -68,32 +105,6 @@ function encriptar() {
     userInput.setAttribute('placeholder', "Ingrese el texto aquí");
 }
 
-function desencriptar() {
-    const vowelMap = {
-        a: "ai",
-        e: "enter",
-        i: "imes",
-        o: "ober",
-        u: "ufat"
-    };
-
-    let dataEncrypted = userInput.value;
-
-    for (key in vowelMap){
-        const regEx = new RegExp(vowelMap[key], 'g');
-        dataEncrypted = dataEncrypted.replace(regEx, key);
-        console.log(dataEncrypted)
-    }
-
-        copyString = dataEncrypted;
-
-        output.innerHTML = 
-        `<span class="textoCodificado-js">${dataEncrypted}</span>
-        <button class="copyButton-js" onClick=copyOutput()>Copiar</button>`;
-
-        userInput.value = '';
-        userInput.setAttribute('placeholder', "Ingrese el texto aquí");
-}
 
 function copyOutput(){
         navigator.clipboard.writeText(copyString)
@@ -108,6 +119,12 @@ function copyOutput(){
                 }, 2000)
             })
             .catch(()=> alert("Something went wrong"));
+}
 
-        
+
+function historyAdd(input, submitter) {
+    const paragraph = document.createElement('p');
+    paragraph.classList.add('history-card-data');
+    paragraph.innerHTML = `<b>${submitter}:</b> ${input}`;
+    historyCard.appendChild(paragraph);
 }
