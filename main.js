@@ -1,20 +1,20 @@
-// ---------- All elements from DOM ----------
+// ---------- All DOM elements----------
 const form = document.getElementById('form');
 const userInput = document.getElementById('userInput');
 const output = document.getElementById('output');
 const historyButton = document.getElementById('historyButton');
 const closeButton = document.getElementById('closeButton');
+const historyDeleteBtn = document.getElementById('historyDeleteBtn');
 const historyCard = document.querySelector('.history-card');
 
 // ---- variable for clipBoard ----
 let copyString = '';
 
-const defaultCardOutput = 
-`<div class="card-img"></div>
-<span><b>Ningún mensaje fue encontrado</b><br><br>
-    Ingresa el texto que desees encriptar o desencriptar.
-</span>`;
-
+// ---- Local storage variable
+const storage = {
+        localUserStorage: JSON.parse(localStorage.getItem('encryptStorage')) ?? [],
+        hasStorage: false
+    }
 
 // --- Object for encrypt functions ---
 const vowelMap = {
@@ -30,7 +30,7 @@ form.addEventListener('submit', (event)=>{
     const buttonClicked = event.submitter;
 
     //Validación con expresión regular del input del usuario
-    const regex = /^[a-z0-9!¡ .¿?,\s]*$/g;
+    const regex = /^[a-z0-9_\-!¡ .¿?,\s]*$/g;
     const string = new String(userInput.value)
     const val = string.match(regex) ?? false;
 
@@ -57,6 +57,7 @@ form.addEventListener('submit', (event)=>{
 userInput.addEventListener('keypress', ()=>{
     const infoIcon = document.getElementById('info-icon').src = "images/info.svg";
     const infoText = document.getElementById('info-text').classList.remove('warning-js');
+    userInput.setAttribute('placeholder', "Ingrese el texto aquí");
 });
 
 historyButton.addEventListener('click', ()=>{
@@ -69,7 +70,15 @@ closeButton.addEventListener('click', ()=>{
     historyCard.classList.remove('show_historyCard-js');
 });
 
-
+historyDeleteBtn.addEventListener('click', ()=>{
+    storage.localUserStorage = [];
+    localStorage.removeItem('encryptStorage');
+    
+    const paragraphs = document.querySelectorAll('[data-history]');
+    paragraphs.forEach(parag =>{
+        parag.remove();
+    })
+});
 
 function encrypt() {
     const dataEncrypted = userInput.value.replace(/[aeiou]/g, (vowel) => vowelMap[vowel]);
@@ -105,14 +114,24 @@ function outputContent(dataEncrypted) {
 function copyOutput(){
         navigator.clipboard.writeText(copyString)
             .then(() => {
-                output.innerHTML =
-                `<img src="images/check.svg">
-                <span class="success">Texto copiado satisfactoriamente
-                </span>`
+                output.innerHTML = ''
+                
+                bodymovin.loadAnimation({
+                    container: document.getElementById('output'),
+                    path: 'animations/79952-successful.json',
+                    render: 'svg',
+                    loop: false,
+                    autoplay: true
+                });
+
 
                 setTimeout(()=>{
-                    output.innerHTML = defaultCardOutput
-                }, 2000)
+                    output.innerHTML =
+                    `<div class="card-img"></div>
+                    <span><b>Ningún mensaje fue encontrado</b><br><br>
+                        Ingresa el texto que desees encriptar o desencriptar.
+                    </span>`;
+                }, 1600)
             })
             .catch(()=> alert("Something went wrong"));
 }
@@ -121,16 +140,37 @@ function copyOutput(){
 function historyAdd(input, submitter) {
     const paragraph = document.createElement('p');
     paragraph.classList.add('history-card-data');
+    paragraph.setAttribute('data-history', 'data');
     paragraph.innerHTML = `<b>${submitter}:</b> ${input}`;
     historyCard.appendChild(paragraph);
+
+    const storageMap = {
+        'submitter': submitter,
+        'input': input
+    }
+
+    if(storage.hasStorage){
+        storage.localUserStorage.push(storageMap);
+        localStorage.setItem('encryptStorage', JSON.stringify(storage.localUserStorage));
+    }
 }
 
 
-//animation code
+// --------- animation code ------------
 const animtation = bodymovin.loadAnimation({
     container: document.getElementById('typingAnimation'),
     path: 'animations/93884-typing.json',
     render: 'svg',
     loop: true,
     autoplay: true
-})
+});
+
+// ------- Local storage history filler --------
+    document.addEventListener('DOMContentLoaded',()=>{
+        if (storage.localUserStorage.length > 0){
+            storage.localUserStorage.forEach(element =>{
+                historyAdd(element.input, element.submitter);
+            })
+        }
+        storage.hasStorage = true
+    })

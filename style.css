@@ -278,6 +278,32 @@ body{
     border-bottom: 1px solid var(--alice-blue);
 }
 
+.container-btn_history{
+    width: 100%;
+
+    display: flex;
+    justify-content: end;
+}
+
+.btn_history{
+    width: 125px;
+    height: 30px;
+    border: 1px solid var(--alice-blue);
+    border-radius: 25px;
+
+    color: var(--alice-blue);
+    background-color: transparent;
+
+    font-weight: 900;   
+
+    transition: all 250ms;
+}
+
+.btn_history:hover{
+    cursor: pointer;
+    background-color: var(--danger);
+}
+
 .show_historyCard-js{
     transform: translateX(0%);
 }
